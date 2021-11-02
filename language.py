@@ -183,8 +183,19 @@ getTopWords(count, words, probs, ignoreList)
 Parameters: int ; list of strs ; list of floats ; list of strs
 Returns: dict mapping strs to floats
 '''
+import operator
 def getTopWords(count, words, probs, ignoreList):
-    return
+    dictionary={}
+    dictionary1={}
+    for i in range(len(words)):
+        if words[i] not in ignoreList:
+            dictionary[words[i]]=probs[i]
+    common = dict(sorted(dictionary.items(), key=lambda x:x[1], reverse=True))
+    for i,j in common.items():
+        if len(dictionary1) != count and i not in ignoreList:
+            dictionary1[i] = j
+    return dictionary1
+            
 
 
 '''
@@ -355,7 +366,7 @@ if __name__ == "__main__":
     # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     # test.runWeek1()
     # test.testGetCorpusLength()
-    test.testBuildBigramProbs()
+    test.testGetTopWords()
 
     ## Uncomment these for Week 2 ##
 """
