@@ -148,7 +148,12 @@ Parameters: list of strs ; dict mapping strs to ints ; int
 Returns: list of floats
 '''
 def buildUnigramProbs(unigrams, unigramCounts, totalCount):
-    return
+    emptylist=[]
+    for i in unigrams:
+        if i in unigramCounts:
+            count=unigramCounts[i]/totalCount
+            emptylist.append(count)
+    return emptylist
 
 
 '''
@@ -339,7 +344,7 @@ if __name__ == "__main__":
     # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     # test.runWeek1()
     # test.testGetCorpusLength()
-    test.testBuildUniformProbs()
+    test.testBuildUnigramProbs()
 
     ## Uncomment these for Week 2 ##
 """
