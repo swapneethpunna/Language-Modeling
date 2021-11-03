@@ -270,7 +270,7 @@ def graphTopStartWords(corpus):
     startWordCounts = countStartWords(corpus)
     startWordProbs = buildUnigramProbs(startwords, startWordCounts, len(corpus))
     top=getTopWords(50, startwords, startWordProbs, ignore)
-    plot=barPlot(top, "top start words")
+    plot=barPlot(top, "top 50 most frequent start words")
     return plot
 
 
@@ -281,7 +281,10 @@ Parameters: 2D list of strs ; str
 Returns: None
 '''
 def graphTopNextWords(corpus, word):
-    return
+    bigramprob=buildBigramProbs(countUnigrams(corpus), countBigrams(corpus))
+    x=getTopWords(10, bigramprob[word]["words"], bigramprob[word]["probs"], ignore)
+    plot=barPlot(x, "top 10 words that appear after that word")
+
 
 
 '''
