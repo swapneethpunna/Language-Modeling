@@ -206,7 +206,11 @@ Returns: str
 '''
 from random import choices
 def generateTextFromUnigrams(count, words, probs):
-    return
+    string=""
+    for i in range((count)):
+        x=choices(words, weights=probs)
+        string=string+x[0]+ ' '
+    return string
 
 
 '''
@@ -366,7 +370,7 @@ if __name__ == "__main__":
     # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     # test.runWeek1()
     # test.testGetCorpusLength()
-    test.testGetTopWords()
+    test.testGenerateTextFromUnigrams()
 
     ## Uncomment these for Week 2 ##
 """
