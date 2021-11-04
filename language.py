@@ -294,7 +294,45 @@ Parameters: 2D list of strs ; 2D list of strs ; int
 Returns: dict mapping strs to (lists of values)
 '''
 def setupChartData(corpus1, corpus2, topWordCount):
-    return
+    unigram1=buildVocabulary(corpus1)
+    unicount1=countUnigrams(corpus1)
+    length1=getCorpusLength(corpus1)
+    prob1=buildUnigramProbs(unigram1,unicount1,length1)
+    Top_n_words_corpus1=getTopWords(topWordCount,unigram1,prob1,ignore)
+ 
+    unigram2=buildVocabulary(corpus2)
+    unicount2=countUnigrams(corpus2)
+    length2=getCorpusLength(corpus2)
+    prob2=buildUnigramProbs(unigram2,unicount2,length2)
+    Top_n_words_corpus2=getTopWords(topWordCount,unigram2,prob2,ignore)
+ 
+ 
+    combined_top_words = Top_n_words_corpus1.copy()
+    combined_top_words.update(Top_n_words_corpus2)
+    dict1={}
+    dict1={}
+    topWords=[]
+    Probs1=[]
+    probs2=[]
+    for i in combined_top_words:
+        topWords.append(i)
+        if i in Top_n_words_corpus1.keys():
+            Probs1.append(Top_n_words_corpus1[i])
+        else:
+            Probs1.append(0)
+         
+        if i in Top_n_words_corpus2.keys():
+           probs2.append(Top_n_words_corpus2[i])
+        else:
+            probs2.append(0)
+    dict1['topWords']=topWords
+    dict1['corpus1Probs']=Probs1
+    dict1['corpus2Probs']=probs2
+    return dict1
+  
+
+
+    
 
 
 '''
@@ -304,7 +342,9 @@ Parameters: 2D list of strs ; str ; 2D list of strs ; str ; int ; str
 Returns: None
 '''
 def graphTopWordsSideBySide(corpus1, name1, corpus2, name2, numWords, title):
-    return
+    dict1=setupChartData(corpus1,corpus2,numWords)
+    sideBySideBarPlots(dict1["topWords"],dict1["corpus1Probs"],dict1["corpus2Probs"],name1,name2,title)
+
 
 
 '''
@@ -314,7 +354,9 @@ Parameters: 2D list of strs ; 2D list of strs ; int ; str
 Returns: None
 '''
 def graphTopWordsInScatterplot(corpus1, corpus2, numWords, title):
-    return
+    dict1=setupChartData(corpus1,corpus2,numWords)
+    scatterPlot(dict1["corpus1Probs"],dict1["corpus2Probs"],dict1["topWords"],title)
+
 
 
 ### WEEK 3 PROVIDED CODE ###
@@ -397,14 +439,14 @@ if __name__ == "__main__":
     # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     # test.runWeek1()
     # test.testGetCorpusLength()
-    # test.testGenerateTextFromBigrams()
+    # test.testSetupChartData()
 
     ## Uncomment these for Week 2 ##
 # """
-#     print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
-#     test.week2Tests()
-#     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
-#     test.runWeek2()
+    # print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
+    # test.week2Tests()
+    # print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
+    # test.runWeek2()
 # """
 
     ## Uncomment these for Week 3 ##
